@@ -201,14 +201,127 @@ if (gamestate == 1) { //play
   //  }
 //row 2 at or above platforms 2 and 3
  //NOTE this one will have to account for plats 2 and 3 for l r cg
+ //down
+   if (locy + 15 == p2y) { //if 1px above plat 1
+    if (locx + 16 < p2x && locx < p3x) { cgd = 0;  } //changed back to 16
+    if (locx > (p2x + p2w)&& locx < p3x) { cgd = 0; } //reset cgd if right of plat 1
+    if (locx <= (p2x + p2w) && (locx + 16 >= p2x)) { cgd = 1; } //stop from going down
+  }
+   //if ((locy + 15) < (p1y) or locy > p1y && locy <= p1y +16 ) {
+   if ((locy == p2y + 2) or  locy + 16 == p2y) { //reset cgd if below pl1 or above pl1
+    if (locx < p3x && locx > (p2x + p2w)) {
+      cgd = 0;
+    }
+   }
+  //cgu
+  if (locy >= p2y && locy < (p2y +1)) {
+    if (locx + 16 < p2x && locx < p3x) { cgu = 0;  } //changed back to 16
+    if (locx > (p2x + p2w)&& locx < p3x) { cgu = 0; } //reset cgu if right of plat 1
+    if (locx <= (p2x + p2w) && (locx + 16 >= p2x)) { cgu = 1; } //stop from going down
+  }
+   //if ((locy + 15) < (p1y) or locy > p1y && locy <= p1y +16 ) {
+   if ((locy == p2y + 2) or  locy + 16 == p2y) { //reset cgu if more than 1 below pl1 and above pl2
+    cgu = 0;
+   }
+  
+ //cgl or cgr
+ 
+ if (locy >= (p2y - 15) && locy < (p2y) && locx < p3x) { // removed +1 from the latter
+    //cgl
+    //if (locx > (p2x + p2w)) { cgl = 0;  } //reset cgl if to right of plat 1
+    if ((locx) == (p2x + p2w)) { cgl = 1; } //stop from going left if at plat 1
+    //cgr
+    //if ((locx + 16) < p2x) { cgr = 0;  } //reset cgr if to left of plat 1
+    if ((locx + 16) == (p2x)) { cgr = 1; } //stop from going left if at plat 1
+ }
+
+ if (((locy + 16) == (p2y - 1)) or locy == (p2y + 1)) { 
+ cgl = 0;
+ cgr = 0;
+ }
+ //plat 3
+ //down
+   if (locy + 15 == p3y) { //if 1px above plat 1
+    if (locx + 16 < p3x && locx > (p2x + p2w)) { cgd = 0;  } //changed back to 16
+    if (locx > (p3x + p3w) && locx > (p2x + p2w)) { cgd = 0; } //reset cgd if right of plat 1
+    if (locx <= (p3x + p3w) && (locx + 16 >= p3x)) { cgd = 1; } //stop from going down
+  }
+   //if ((locy + 15) < (p1y) or locy > p1y && locy <= p1y +16 ) {
+   if ((locy == p3y + 2) or  locy + 16 == p3y) { //reset cgd if below pl1 or above pl1
+    if (locx > (p2x + p2w)) {
+      cgd = 0;
+    }
+   }
+
+   
+  //cgu
+  if (locy >= p3y && locy < (p3y +1)) {
+    if (locx + 16 < p2x && locx > p2x) { cgu = 0;  } //changed back to 16
+    if (locx > (p3x + p3w) && locx > p2x) { cgu = 0; } //reset cgu if right of plat 1
+    if (locx <= (p3x + p3w) && (locx + 16 >= p3x)) { cgu = 1; } //stop from going down
+  }
+   //if ((locy + 15) < (p1y) or locy > p1y && locy <= p1y +16 ) {
+   if ((locy == p3y + 2) or  locy + 16 == p3y) { //reset cgu if more than 1 below pl1 and above pl2
+    cgu = 0;
+   }
+    if (locy >= (p3y - 15) && locy < (p2y) && locx > p2x) { // removed +1 from the latter
+    //cgl
+    //if (locx > (p3x + p3w)) { cgl = 0;  } //reset cgl if to right of plat 3
+    if ((locx) == (p3x + p3w)) { cgl = 1; } //stop from going left if at plat 1
+    //cgr
+    //if ((locx + 16) < p3x) { cgr = 0;  } //reset cgr if to left of plat 1
+    if ((locx + 16) == (p3x)) { cgr = 1; } //stop from going left if at plat 1
+ }
+
+ if (locy >= (p3y - 15) && locy < (p2y)) {
+     if ((locx + 16) < p2x) { cgr = 0;  } //reset cgr if to left of plat 2
+     if (locx > (p3x + p3w)) { cgl = 0;  } //reset cgl if to right of plat 3
+//critical
+     if (locx > (p2x + p2w) && locx < p3x) { cgl = 0;  } //reset cgl if to right of plat 1
+     if ((locx + 16) < p3x && locx > (p2x + p2w)) { cgr = 0;  } //reset cgr if to left of plat 1
+ }
+
  
 //row 3 at or above platform 4
+   //down
+   if (locy + 15 == p4y) { //if 1px above plat 4
+    if (locx + 16 < p1x) { cgd = 0;  } 
+    if (locx > (p4x + p4w)) { cgd = 0; } //reset cgd if right of plat 4
+    if (locx <= (p4x + p4w) && (locx + 16 >= p4x)) { cgd = 1; } //stop from going down
+  }
+   //if ((locy + 15) < (p1y) or locy > p1y && locy <= p1y +16 ) {
+   if ((locy == p4y + 2) or  locy + 16 == p4y) { //reset cgd if below pl4 or above pl4
+    cgd = 0;
+   }
+  //cgu
+  if (locy >= p4y && locy < (p4y +1)) {
+    if (locx + 16 < p4x) { cgu = 0;  } //changed back to 16
+    if (locx > (p4x + p4w)) { cgu = 0; } //reset cgu if right of plat 1
+    if (locx <= (p4x + p4w) && (locx + 16 >= p4x)) { cgu = 1; } //stop from going down
+  }
+   //if ((locy + 15) < (p1y) or locy > p1y && locy <= p1y +16 ) {
+   if ((locy == p4y + 2) or  locy + 16 == p4y) { //reset cgu if more than 1 below pl1 and above pl2
+    cgu = 0;
+   }
+  
+ //cgl or cgr
  
+ if (locy >= (p4y - 15) && locy < (p4y)) { // removed +1 from the latter
+    //cgl
+    if (locx > (p4x + p4w)) { cgl = 0;  } //reset cgl if to right of plat 1
+    if ((locx) == (p1x + p1w)) { cgl = 1; } //stop from going left if at plat 1
+    //cgr
+    if ((locx + 16) < p4x) { cgr = 0;  } //reset cgr if to left of plat 1
+    if ((locx + 16) == (p4x)) { cgr = 1; } //stop from going left if at plat 1
+ }
+
+ if (((locy + 16) == (p4y - 1)) or locy == (p4y + 1)) { 
+ cgl = 0;
+ cgr = 0;
+}
+
     
- // }
-  // if (locy >= p2y && locy < (p4y +16)) { //if 1 px above plat4 let you go down (other checks should stop you going through it
-  //  if (locx <= (p4x + p4w) && (locx + 16 >= p4x)) { cgd = 0; }
-  // }
+
 
  
  // end movment restrictions
